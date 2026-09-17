@@ -66,12 +66,14 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         // TODO: Set the player's current health to their maximum health.
-
-
+        {
+            currentHP = maxHP;
+        }
 
         // TODO: Print the player's starting health to the Console.
-
-
+        {
+            print("Current HP: " + currentHP);
+        }
 
         if (movement == null)
         {
