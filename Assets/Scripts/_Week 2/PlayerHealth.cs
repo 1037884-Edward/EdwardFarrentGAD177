@@ -220,17 +220,26 @@ public class PlayerHealth : MonoBehaviour
         }
 
         // TODO: Subtract the damage amount from the player's current health.
-
+        if (isDead == false)
+        {
+            currentHP = currentHP - amount;
+        }
 
 
         // TODO: Check whether the player's health is below zero.
         // If it is, set the player's health to zero.
-
+        if (currentHP < 0)
+        {
+            currentHP = 0;
+        }
 
 
         // TODO: If debug logs are enabled, print the amount of damage taken
         // and the player's current health.
-
+        if (showDebugLogs == true)
+        {
+            print("Damaged: " + amount + " Player Health: " + currentHP);
+        }
 
 
         UpdateHealthUI();
