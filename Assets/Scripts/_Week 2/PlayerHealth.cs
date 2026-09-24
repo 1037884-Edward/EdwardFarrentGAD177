@@ -265,16 +265,26 @@ public class PlayerHealth : MonoBehaviour
 
         // TODO: Add the healing amount to the player's current health.
 
-
+        if (isDead == false)
+        {
+            currentHP = currentHP + amount;
+        }
 
         // TODO: Check whether the player's health is greater than maxHP.
         // If it is, set it back to maxHP.
 
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
 
 
         // TODO: If debug logs are enabled, print the amount healed
         // and the player's current health.
-
+        if (showDebugLogs == true)
+        {
+            print("Healed: " + amount + " Players Health: " + currentHP);
+        }
 
 
         UpdateHealthUI();
