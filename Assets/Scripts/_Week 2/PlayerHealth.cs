@@ -162,10 +162,10 @@ public class PlayerHealth : MonoBehaviour
         if (useHealthSlider == true && healthSlider != null)
         {
             // TODO: Set the slider's maximum value to the player's maximum health.
-            healthSlider.maxValue = 0;
+            healthSlider.maxValue = maxHP;
 
             // TODO: Set the slider's current value to the player's current health.
-            healthSlider.value = 0;
+            healthSlider.value = currentHP;
         }
 
         if (useHealthText == true && healthText != null)
