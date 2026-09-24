@@ -50,11 +50,11 @@ public class PlayerHealth : MonoBehaviour
     public bool enableDebugKeys = true;
     public bool showDebugLogs = true;
 
-    public Key debugDamageKey = Key.Space;
+    private Key debugDamageKey = Key.Space;
     public int minimumDebugDamage = 1;
     public int maximumDebugDamage = 3;
 
-    public Key debugHealKey = Key.H;
+    private Key debugHealKey = Key.H;
     public int minimumDebugHeal = 1;
     public int maximumDebugHeal = 3;
 
@@ -183,7 +183,7 @@ public class PlayerHealth : MonoBehaviour
         int maximumDebugDamage = 3;
         int damageAmount = Random.Range(minimumDebugDamage, maximumDebugDamage);
 
-        print(damageAmount);
+        print("Damaged " + damageAmount);
 
         // TODO: Print the randomly generated damage amount to the Console.
 
@@ -197,7 +197,11 @@ public class PlayerHealth : MonoBehaviour
         // TODO: Give healAmount a random value between
         // minimumDebugHeal and maximumDebugHeal.
         // Include both the minimum and maximum values.
-        int healAmount = 0;
+        int minimumDebugHeal = 1;
+        int maximumDebugHeal = 3;
+        int healAmount = Random.Range(minimumDebugHeal, maximumDebugHeal);
+
+        print("Healed " + healAmount);
 
 
 
