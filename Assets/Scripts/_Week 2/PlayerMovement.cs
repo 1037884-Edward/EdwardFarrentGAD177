@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
 
+    [Header("Sound")]
+    public AudioSource audioSource;
+    public AudioClip walkSound;
+
     [Header("Animation")]
     public Animator animator;
     public string isMovingParameter = "isMoving";
@@ -32,6 +36,10 @@ public class PlayerMovement : MonoBehaviour
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
         }
     }
 
@@ -98,6 +106,10 @@ public class PlayerMovement : MonoBehaviour
         {
             moveInput = moveInput.normalized;
         }
+        if (x == 1 || y == 1)
+        {
+            PlayerMovingSoundPlay();
+        }
     }
 
     private void FixedUpdate()
@@ -138,4 +150,21 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = faceRightByDefault;
         }
     }
+    private void PlayerMovingSoundPlay()
+    {
+        if (audioSource == null)
+        {
+            return;
+        }
+        
+        if (walkSound == null)
+        {
+            return;
+        }
+
+        audioSource.PlayOneShot(walkSound);
+
+        Debug.Log ("MovingSound: Moving sound played.");
+    }
+    
 }
