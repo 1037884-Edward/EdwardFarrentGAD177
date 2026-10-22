@@ -286,19 +286,16 @@ public class EnemyHealth : MonoBehaviour
 
         if (playerMoney != null)
         {
-            if (AddMoney != null)
-            {
-                AddMoney(moneyReward);
-            }
+            playerMoney.AddMoney(moneyReward);
         }
 
         // TODO: Check that playerKills is not null.
         // If it exists, call AddKills and give it killReward.
         if (playerKills != null)
         {
-            if (AddKills != null)
+            if (playerKills != null)
             {
-                AddKills(killReward);
+                playerKills.AddKills(killReward);
             }
         }
 
