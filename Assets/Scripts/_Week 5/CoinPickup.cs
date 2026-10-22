@@ -14,22 +14,21 @@ public class CoinPickup : MonoBehaviour
     private void Awake()
     {
         // TODO: Get the Collider2D component from this GameObject.
-        Collider2D col = null;
-
-
+        Collider2D col = GetComponent<Collider2D>();
 
         // TODO: Check that col is not null.
         // If it exists, set the Collider2D to be a trigger.
-
-
+        if (col != null)
+        {
+            col.isTrigger = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         // TODO: Check whether the object that entered the trigger
         // has the Player tag.
-        // If it does not, stop this function.
-
+        // If it does not, stop this function
 
 
         // TODO: Get the PlayerMoney component from the object
