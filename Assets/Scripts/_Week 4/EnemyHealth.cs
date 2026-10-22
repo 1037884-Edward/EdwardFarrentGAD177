@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -59,31 +61,54 @@ public class EnemyHealth : MonoBehaviour
         // TODO: Check if spriteRenderer is null.
         // If it is, get the SpriteRenderer component from this GameObject.
 
-
+        if (spriteRenderer == null)
+        {
+            gameObject.GetComponent<SpriteRenderer>();
+            Debug.Log("Got Sprite Renderer Component");
+        }
 
         // TODO: Check that spriteRenderer is not null.
         // If it exists, store its current colour in originalColor.
 
-
-
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+            Debug.Log("Stored Colour in Original Colour");
+        }
         // TODO: Check if audioSource is null.
         // If it is, get the AudioSource component from this GameObject.
 
-
+        if (audioSource == null)
+        {
+            gameObject.GetComponent<AudioSource>();
+            Debug.Log("Got Audio Source component");
+        }
 
         // TODO: Check if playerExperience is null.
         // If it is, find the PlayerExperience component in the scene.
 
-
+        if (playerExperience == null)
+        {
+            Component.FindAnyObjectByType<PlayerExperience>();
+            Debug.Log("Found Player Experience Component");
+        }
 
         // TODO: Check if playerMoney is null.
         // If it is, find the PlayerMoney component in the scene.
 
-
+        if (playerMoney == null)
+        {
+            Component.FindAnyObjectByType<PlayerMoney>();
+            Debug.Log("Found Player Money Component");
+        }
 
         // TODO: Check if playerKills is null.
         // If it is, find the PlayerKills component in the scene.
-
+        if (playerKills == null)
+        {
+            Component.FindAnyObjectByType<PlayerKills>();
+            Debug.Log("Found Player Kills Component");
+        }
 
     }
 
@@ -127,27 +152,36 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
 
-        // TODO: Subtract amount from the enemy's current health.
+        //Subtract amount from the enemy's current health.
+        currentHP -= amount;
 
-
-
-        // TODO: Check whether currentHP is below 0.
+        //Check whether currentHP is below 0.
         // If it is, set currentHP to 0.
 
+        if (currentHP < 0)
+        {
+            currentHP = 0;
+        }
 
-
-        // TODO: If debug logs are enabled,
+        //If debug logs are enabled,
         // print the damage taken and current health.
 
+        if (showDebugLogs == true)
+        {
+            Debug.Log(amount + currentHP);
+        }
 
+        //Call the function that plays the enemy's hit feedback.
 
-        // TODO: Call the function that plays the enemy's hit feedback.
+        PlayHitFeedback();
 
-
-
-        // TODO: Check whether the enemy's current health is 0 or less.
+        //Check whether the enemy's current health is 0 or less.
         // If it is, call the Die function.
+        if (currentHP <= 0)
 
+        {
+            Die();
+        }
 
     }
 
@@ -159,9 +193,12 @@ public class EnemyHealth : MonoBehaviour
             flashRoutine = StartCoroutine(FlashOnHit());
         }
 
-        // TODO: Check that both audioSource and hitSound are not null.
+        //Check that both audioSource and hitSound are not null.
         // If they exist, play hitSound using the AudioSource.
-
+        if (audioSource != null && hitSound != null)
+        {
+            audioSource.PlayOneShot(hitSound);
+        }    
 
     }
 
@@ -173,16 +210,18 @@ public class EnemyHealth : MonoBehaviour
             yield break;
         }
 
-        // TODO: Change the SpriteRenderer's colour to the hit flash colour.
-
-
+        //Change the SpriteRenderer's colour to the hit flash colour.
+        spriteRenderer.color = hitFlashColor;
 
         yield return new WaitForSeconds(flashDuration);
 
-        // TODO: Check that spriteRenderer is not null.
+        //Check that spriteRenderer is not null.
         // If it exists, change its colour back to originalColor.
 
-
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
 
         // Allow the hit flash to be started again.
         flashRoutine = null;
@@ -190,31 +229,37 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        // TODO: Check whether the enemy is already dead.
+        //Check whether the enemy is already dead.
         // If it is, stop the function.
 
+        if (isDead == true)
+        {
+            return;
+        }
 
+        //Set isDead to true.
 
-        // TODO: Set isDead to true.
+        isDead = true;
 
-
-
-        // TODO: If debug logs are enabled,
+        //If debug logs are enabled,
         // print that the enemy has died.
 
+        if (showDebugLogs == true)
+        {
+            Debug.Log("Enemy has died...");
+        }
 
+        //Call the function that awards the player's rewards.
 
-        // TODO: Call the function that awards the player's rewards.
+        AwardRewards();
 
+        //Call the function that drops coins.
 
+        DropCoins();
 
-        // TODO: Call the function that drops coins.
+        //Call the function that plays the death sound.
 
-
-
-        // TODO: Call the function that plays the death sound.
-
-
+        PlayDeathSound();
 
         // Invoke any functions connected to the On Die event in the Inspector.
         // We will look at how UnityEvents work in more detail in later weeks.
@@ -239,11 +284,23 @@ public class EnemyHealth : MonoBehaviour
         // TODO: Check that playerMoney is not null.
         // If it exists, call AddMoney and give it moneyReward.
 
-
+        if (playerMoney != null)
+        {
+            if (AddMoney != null)
+            {
+                AddMoney(moneyReward);
+            }
+        }
 
         // TODO: Check that playerKills is not null.
         // If it exists, call AddKills and give it killReward.
-
+        if (playerKills != null)
+        {
+            if (AddKills != null)
+            {
+                AddKills(killReward);
+            }
+        }
 
     }
 
