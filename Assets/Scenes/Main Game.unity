@@ -693,6 +693,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1428385756}
     - target: {fileID: 732181523225025607, guid: 3f50ffbc2ae69934e8de93e3f4d63b4c, type: 3}
+      propertyPath: spawnerCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 732181523225025607, guid: 3f50ffbc2ae69934e8de93e3f4d63b4c, type: 3}
       propertyPath: gameOverScreen
       value: 
       objectReference: {fileID: 896476624}

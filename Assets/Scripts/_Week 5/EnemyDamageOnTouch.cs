@@ -25,7 +25,10 @@ public class EnemyDamageOnTouch : MonoBehaviour
     {
         // TODO: Check if audioSource is null.
         // If it is, get the AudioSource component from this GameObject.
-
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
 
     }
 
@@ -34,7 +37,7 @@ public class EnemyDamageOnTouch : MonoBehaviour
         // TODO: Check whether the object involved in the collision
         // has the Player tag.
         // If it does not, stop this function.
-
+        if (collision.gameObject.CompareTag("Player"))
 
 
         // TODO: Get the PlayerHealth component from the

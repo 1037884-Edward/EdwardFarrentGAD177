@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -26,28 +28,40 @@ public class CoinPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // TODO: Check whether the object that entered the trigger
+        //: Check whether the object that entered the trigger
         // has the Player tag.
         // If it does not, stop this function
-        
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
 
-        // TODO: Get the PlayerMoney component from the object
+        //: Get the PlayerMoney component from the object
         // that entered the trigger.
-        
-        PlayerMoney money = null;
 
+        PlayerMoney money = other.gameObject.GetComponent<PlayerMoney>();
 
-
-        // TODO: If money is null, try to find the
+        //: If money is null, try to find the
         // PlayerMoney component in the scene.
 
-
+        if (money == null)
+        {
+            money = FindAnyObjectByType<PlayerMoney>();
+        }
 
         // TODO: Check that money is not null.
         // If it exists:
         // - Add moneyAmount to the player's money.
         // - Print a debug message if debug logs are enabled.
 
+        if (money != null)
+        {
+            money.AddMoney(moneyAmount);
+            if (showDebugLogs == true)
+            {
+                Debug.Log("How da fuck did this work!!!");
+            }
+        }
 
 
 

@@ -345,7 +345,7 @@ public class EnemyHealth : MonoBehaviour
         //Check that both audioSource and deathSound are not null.
         // If they exist, play deathSound using the AudioSource.
 
-        if (audioSource != null && deathSound != null);
+        if (audioSource != null && deathSound != null)
         {
             audioSource.PlayOneShot(deathSound);
         }
