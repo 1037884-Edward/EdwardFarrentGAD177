@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -58,7 +57,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Awake()
     {
-        // TODO: Check if spriteRenderer is null.
+        // : Check if spriteRenderer is null.
         // If it is, get the SpriteRenderer component from this GameObject.
 
         if (spriteRenderer == null)
@@ -67,7 +66,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log("Got Sprite Renderer Component");
         }
 
-        // TODO: Check that spriteRenderer is not null.
+        //: Check that spriteRenderer is not null.
         // If it exists, store its current colour in originalColor.
 
         if (spriteRenderer != null)
@@ -75,7 +74,7 @@ public class EnemyHealth : MonoBehaviour
             originalColor = spriteRenderer.color;
             Debug.Log("Stored Colour in Original Colour");
         }
-        // TODO: Check if audioSource is null.
+        //: Check if audioSource is null.
         // If it is, get the AudioSource component from this GameObject.
 
         if (audioSource == null)
@@ -84,7 +83,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log("Got Audio Source component");
         }
 
-        // TODO: Check if playerExperience is null.
+        //: Check if playerExperience is null.
         // If it is, find the PlayerExperience component in the scene.
 
         if (playerExperience == null)
@@ -93,7 +92,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log("Found Player Experience Component");
         }
 
-        // TODO: Check if playerMoney is null.
+        //: Check if playerMoney is null.
         // If it is, find the PlayerMoney component in the scene.
 
         if (playerMoney == null)
@@ -102,7 +101,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log("Found Player Money Component");
         }
 
-        // TODO: Check if playerKills is null.
+        //: Check if playerKills is null.
         // If it is, find the PlayerKills component in the scene.
         if (playerKills == null)
         {
@@ -281,7 +280,7 @@ public class EnemyHealth : MonoBehaviour
             playerExperience.AddXP(xpReward);
         }
 
-        // TODO: Check that playerMoney is not null.
+        //Check that playerMoney is not null.
         // If it exists, call AddMoney and give it moneyReward.
 
         if (playerMoney != null)
@@ -289,14 +288,11 @@ public class EnemyHealth : MonoBehaviour
             playerMoney.AddMoney(moneyReward);
         }
 
-        // TODO: Check that playerKills is not null.
+        //Check that playerKills is not null.
         // If it exists, call AddKills and give it killReward.
         if (playerKills != null)
         {
-            if (playerKills != null)
-            {
                 playerKills.AddKills(killReward);
-            }
         }
 
     }
@@ -313,12 +309,12 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
 
-        // TODO: Generate a random value between 0 and 1.
-        float roll = 0;
+        //Generate a random value between 0 and 1.
+        float roll = Random.Range(0.0f, 1.0f);
 
-        // TODO: Check whether the roll is more than the drop chance
+        //Check whether the roll is more than the drop chance
         // to see if the enemy successfully drops coins.
-        if (roll > 0)
+        if (roll > coinDropChance);
         {
             if (showDebugLogs == true)
             {
@@ -346,9 +342,13 @@ public class EnemyHealth : MonoBehaviour
 
     private void PlayDeathSound()
     {
-        // TODO: Check that both audioSource and deathSound are not null.
+        //Check that both audioSource and deathSound are not null.
         // If they exist, play deathSound using the AudioSource.
 
+        if (audioSource != null && deathSound != null);
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
 
     }
 }

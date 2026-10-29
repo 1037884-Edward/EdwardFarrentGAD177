@@ -13,10 +13,10 @@ public class CoinPickup : MonoBehaviour
 
     private void Awake()
     {
-        // TODO: Get the Collider2D component from this GameObject.
+        //Get the Collider2D component from this GameObject.
         Collider2D col = GetComponent<Collider2D>();
 
-        // TODO: Check that col is not null.
+        //Check that col is not null.
         // If it exists, set the Collider2D to be a trigger.
         if (col != null)
         {
@@ -29,10 +29,11 @@ public class CoinPickup : MonoBehaviour
         // TODO: Check whether the object that entered the trigger
         // has the Player tag.
         // If it does not, stop this function
-
+        
 
         // TODO: Get the PlayerMoney component from the object
         // that entered the trigger.
+        
         PlayerMoney money = null;
 
 

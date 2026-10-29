@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEditor.Tilemaps;
+using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class SingleMeleeAutoAttack : MonoBehaviour
 {
@@ -40,7 +43,10 @@ public class SingleMeleeAutoAttack : MonoBehaviour
         // TODO: Check if playerSpriteRenderer is null.
         // If it is, get the SpriteRenderer from this GameObject or its children.
 
-
+        if (playerSpriteRenderer == null)
+        {
+            playerSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        }
 
         // Get the Animator if one has not been assigned.
         if (animator == null)
@@ -50,6 +56,7 @@ public class SingleMeleeAutoAttack : MonoBehaviour
 
         // TODO: Set the attack timer to the cooldown value.
 
+        attackTimer = cooldown;
 
 
         if (showDebugLogs == true)
@@ -75,13 +82,13 @@ public class SingleMeleeAutoAttack : MonoBehaviour
         if (faceRightByDefault == true)
         {
             // TODO: Set facingRight based on whether the SpriteRenderer is flipped.
-
+            facingRight = !playerSpriteRenderer.flipX;
 
         }
         else
         {
             // TODO: Set facingRight based on whether the SpriteRenderer is flipped.
-
+            facingRight = playerSpriteRenderer.flipX;
 
         }
     }
@@ -101,11 +108,11 @@ public class SingleMeleeAutoAttack : MonoBehaviour
         {
             // TODO: Call the Attack function.
 
-
+            Attack();
 
             // TODO: Reset attackTimer to the cooldown value.
 
-
+            attackTimer = cooldown;
         }
     }
 
@@ -113,11 +120,11 @@ public class SingleMeleeAutoAttack : MonoBehaviour
     {
         // TODO: Call the function that performs the melee slash.
 
-
+        PerformSlash();
 
         // TODO: Call the function that plays the attack animation.
 
-
+        PlayAttackAnimation();
     }
 
     private void PlayAttackAnimation()
@@ -171,22 +178,28 @@ public class SingleMeleeAutoAttack : MonoBehaviour
 
         if (flipSlashWhenFacingLeft == true)
         {
-            // TODO: Get the SpriteRenderer from the slash object.
-            SpriteRenderer slashRenderer = null;
+            //: Get the SpriteRenderer from the slash object.
+            SpriteRenderer slashRenderer = slashObj.GetComponent<SpriteRenderer>();
 
-            // TODO: Check that slashRenderer is not null.
+            //: Check that slashRenderer is not null.
             // If it exists, set its flipX value based on facingRight.
+            if (slashRenderer != null )
+            {
+                slashRenderer.flipX = facingRight;
 
-
+            }
+             
         }
 
         // TODO: Get the MeleeSlash script from the slash object.
         MeleeSlash slash = null;
-
+        slashObj.GetComponent<MeleeSlash>();
         // TODO: Check that slash is not null.
         // If it exists, call Initialize and give it the player's damage.
-
-
+        if (slash != null )
+        {
+            slash.Initialize(damage);
+        }
         if (showDebugLogs == true)
         {
             Debug.Log("SingleMeleeAutoAttack: Auto slash spawned. FacingRight = " + facingRight + ", Damage = " + damage);
