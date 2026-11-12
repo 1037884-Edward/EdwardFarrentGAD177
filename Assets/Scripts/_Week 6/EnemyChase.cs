@@ -26,12 +26,15 @@ public class EnemyChase : MonoBehaviour
     {
         // TODO: Get the Rigidbody2D component from this GameObject.
 
-
+        gameObject.AddComponent<Rigidbody2D>();
 
         // TODO: Check if animator is null.
         // If it is, get the Animator component from this GameObject.
 
-
+        if(animator == null)
+        {
+            gameObject.GetComponent<Animator>();
+        }
 
         // TODO: Check if spriteRenderer is null.
         // If it is, get the SpriteRenderer from this GameObject or its children.
