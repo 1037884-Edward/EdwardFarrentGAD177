@@ -42,7 +42,6 @@ public class EnemyDamageOnTouch : MonoBehaviour
 
         // TODO: Get the PlayerHealth component from the
         // object involved in the collision.
-        PlayerHealth playerHealth = null;
 
 
 

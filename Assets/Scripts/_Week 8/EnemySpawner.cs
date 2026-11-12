@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     public bool enableDebugKeys = true;
     public bool showDebugLogs = true;
 
-    public Key toggleSpawnKey = Key.P;
+    public Key toggleSpawnKey = Key.Y;
     public Key spawnOnceKey = Key.O;
     public Key destroyEnemiesKey = Key.I;
 
@@ -42,117 +43,180 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-        // TODO: Check if audioSource is null.
         // If it is, get the AudioSource component from this GameObject.
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
 
 
-
-        // TODO: Check if animator is null.
         // If it is, get the Animator component from this GameObject.
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
 
 
 
-        // TODO: Check if gameManager is null.
         // If it is, find the GameManager in the scene.
-
+        if (gameManager == null)
+        {
+            gameManager = GetComponent<GameManager>();
+        }
 
     }
 
     private void Start()
     {
-        // TODO: Call the function that plays the idle animation.
+        //Call the function that plays the idle animation.
+        PlayIdleAnimation();
 
 
+        //If debug logs are enabled, print that the EnemySpawner has started.
+        if (showDebugLogs == true)
+        {
+            Debug.Log("Enemy Spawner Has Started");
+        }
 
-        // TODO: If debug logs are enabled, print that the EnemySpawner has started.
 
-
-
-        // TODO: Check that gameManager is not null.
+        // Check that gameManager is not null.
         // If it exists, call AddSpawner.
+        if (gameManager != null)
+        {
+            gameManager = GetComponent<GameManager>();
+            gameManager.AddSpawner();
+        }
 
 
     }
 
     private void Update()
     {
-        // TODO: Call the function that handles the debug input.
+        // Call the function that handles the debug input.
 
+        HandleDebugInput();
 
-
-        // TODO: Check whether spawning is disabled.
+        // Check whether spawning is disabled.
         // If it is, stop this function.
 
-
+        if (spawningEnabled != true)
+        {
+            return;
+        }
 
         // TODO: Check whether enemyPrefab is null.
         // If it is:
         // - Print a warning if debug logs are enabled.
         // - Stop this function.
+        if (enemyPrefab == null)
+        {
+            if(showDebugLogs == true)
+            {
+                Debug.Log("Warning Enemey Prefab is Null!!");
+            }
+            return;
+        }
 
 
+        // Add Time.deltaTime to spawnTimer.
 
-        // TODO: Add Time.deltaTime to spawnTimer.
+        spawnTimer += Time.deltaTime;
 
-
-
-        // TODO: Check whether spawnTimer is greater than or equal to spawnInterval.
+        // : Check whether spawnTimer is greater than or equal to spawnInterval.
         // If it is:
         // - Reset spawnTimer to 0.
         // - Call SpawnEnemy.
-
+        if(spawnTimer >= spawnInterval)
+        {
+            spawnTimer = 0;
+            SpawnEnemy();
+        }
 
     }
 
     private void PlayIdleAnimation()
     {
-        // TODO: Check whether playIdleAnimationOnStart is false.
+        // Check whether playIdleAnimationOnStart is false.
         // If it is, stop this function.
+        if(playIdleAnimationOnStart == false)
+        { 
+            return; 
+        }
 
 
 
-        // TODO: Check whether animator is null.
+        // Check whether animator is null.
         // If it is:
         // - Print a warning if debug logs are enabled.
         // - Stop this function.
 
+        if(animator == null)
+        {
+            if(showDebugLogs == true)
+            {
+                Debug.Log("Warning Animator is Null!!");
+            }
+            return;
+        }
 
-
-        // TODO: Check whether idleAnimationName is empty.
+        //: Check whether idleAnimationName is empty.
         // Hint: Use string.IsNullOrWhiteSpace().
         // If it is:
         // - Print a warning if debug logs are enabled.
         // - Stop this function.
+        if (string.IsNullOrWhiteSpace(idleAnimationName))
+        {
+            if (showDebugLogs == true)
+            {
+                Debug.Log("Warning idleAnimationName is Empty!!");
+            }
+            return;
+        }
 
 
+        // Play the animation stored in idleAnimationName.
 
-        // TODO: Play the animation stored in idleAnimationName.
+        animator.Play(idleAnimationName);
 
+        // If debug logs are enabled, print the animation being played.
 
-
-        // TODO: If debug logs are enabled, print the animation being played.
-
-
+        if (showDebugLogs == true)
+        {
+            Debug.Log("Animation is being Played !! woohoo!!");
+        }
     }
 
     private void HandleDebugInput()
     {
-        // TODO: Check whether debug keys are disabled.
+        //: Check whether debug keys are disabled.
         // If they are, stop this function.
+        if (enableDebugKeys == false)
+        {
+            return;
+        }
 
 
-
-        // TODO: Check whether Keyboard.current is null.
+        //: Check whether Keyboard.current is null.
         // If it is, stop this function.
 
+        if (Keyboard.current == null)
+        { 
+            return;
+        }
 
 
         // TODO: Check whether toggleSpawnKey was pressed.
         // If it was:
         // - Toggle spawningEnabled between true and false.
         // - Print the new value if debug logs are enabled.
-
-
+        if (Keyboard.current[toggleSpawnKey].wasPressedThisFrame)
+        {
+            spawningEnabled = !spawningEnabled;
+            if (showDebugLogs == true)
+            {
+                Debug.Log("Spawn Key Pressed");
+            }
+        }
 
         // TODO: Check whether spawnOnceKey was pressed.
         // If it was:

@@ -4554,6 +4554,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3685594692577444799, guid: 71ae10596454c5944b1a9cabfa8f43bc, type: 3}
+      propertyPath: toggleSpawnKey
+      value: 39
+      objectReference: {fileID: 0}
     - target: {fileID: 4851769617863038759, guid: 71ae10596454c5944b1a9cabfa8f43bc, type: 3}
       propertyPath: m_Name
       value: Spawner

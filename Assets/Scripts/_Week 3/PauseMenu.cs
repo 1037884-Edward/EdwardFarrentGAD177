@@ -31,17 +31,27 @@ public class PauseMenu : MonoBehaviour
             // If it is, call ResumeGame().
             // Otherwise, call PauseGame().
             if (isPaused == true)
+            {
                 ResumeGame();
+            }
             else
+            {
                 PauseGame();
+            }
         }
         if (Keyboard.current.pKey.wasPressedThisFrame)
         {
             // TODO: Check if the game is paused.
             // If it is, call ResumeGame().
             // Otherwise, call PauseGame().
-            isPaused = false;
-            PauseGame();
+            if (isPaused == true)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
         }
 
     }
